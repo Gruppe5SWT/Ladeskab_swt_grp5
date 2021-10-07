@@ -8,23 +8,50 @@ using UsbSimulator;
 
 namespace Ladeskab
 {
-    class ChargeControl : IChargeControl
+    public class ChargeControl : IChargeControl
     {
-        public bool Connected { get; set; }
+        private IUsbCharger _charger;
+
+        public ChargeControl(IUsbCharger charger) 
+        {
+            _charger = charger;
+        }
+
+        public bool Connected { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void StartCharge()
         {
-            Console.WriteLine("Started charging");
+            throw new NotImplementedException();
         }
 
         public void StopCharge()
         {
-            Console.WriteLine("Stopped charging");
+            throw new NotImplementedException();
         }
 
         private void HandleCurrentEvent(object sender, CurrentEventArgs e)
         {
+            double currentCurrent = e.Current;
 
+            if(currentCurrent == 0)
+            {
+                Connected = false;
+            }
+            else if(currentCurrent > 0 && currentCurrent <= 5)
+            {
+                Connected = true;
+                _charger.StopCharge();
+            }
+            else if(currentCurrent > 5 && currentCurrent <= 500)
+            {
+                Connected = true;
+                _charger.StartCharge();
+            }
+            else
+            {
+                Connected = true;
+                _charger.StopCharge();
+            }
         }
 
         

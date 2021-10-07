@@ -5,4 +5,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Program.cs" />
+    <Compile Remove="TestUsbChargerSimulator.cs" />
+    <Compile Remove="UsbChargerSimulator.cs" />
+  </ItemGroup>
+
 </Project>

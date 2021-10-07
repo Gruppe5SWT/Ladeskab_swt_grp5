@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Ladeskab.Interfaces
 {
-    interface IChargeControl
+    public interface IChargeControl
     {
-        bool Connected();
+        public bool Connected { get; set; }
         void StartCharge();
         void StopCharge();
     }

@@ -9,5 +9,4 @@ namespace Ladeskab.Interfaces
         void LockDoor();
         void UnlockDoor();
     }
-
 }

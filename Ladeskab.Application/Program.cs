@@ -1,4 +1,8 @@
-﻿    class Program
+﻿using System;
+
+namespace Ladeskab.Application
+{ 
+    class Program
     {
         static void Main(string[] args)
         {

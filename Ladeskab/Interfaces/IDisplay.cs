@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ladeskab.Interfaces
 {
-    interface IDisplay
+    public interface IDisplay
     {
         void ShowConnectPhoneRequest();
         void ShowDisconnectPhoneRequestion();

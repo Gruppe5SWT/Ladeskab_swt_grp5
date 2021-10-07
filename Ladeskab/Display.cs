@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ladeskab
 {
-    class Display : IDisplay
+    public class Display : IDisplay
     {
         public void ShowConnectionError()
         {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ladeskab.Interfaces
 {
-    interface IDoor
+    public interface IDoor
     {
         void LockDoor();
         void UnlockDoor();

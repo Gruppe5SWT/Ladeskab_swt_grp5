@@ -20,7 +20,7 @@ namespace Ladeskab
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        private IChargeControl _charger;
+        private IChargeControl _chargeControl;
         private int _oldId;
         private IDoor _door;
         private IDisplay _display;
@@ -51,10 +51,10 @@ namespace Ladeskab
             {
                 case LadeskabState.Available:
                     // Check for ladeforbindelse
-                    if (_charger.Connected)
+                    if (_chargeControl.Connected)
                     {
                         _door.LockDoor();
-                        _charger.StartCharge();
+                        _chargeControl.StartCharge();
                         _oldId = id;
                         using (var writer = File.AppendText(logFile))
                         {
@@ -100,7 +100,7 @@ namespace Ladeskab
         {
             if (Id == _oldId)
             {
-                _charger.StopCharge();
+                _chargeControl.StopCharge();
                 _door.UnlockDoor();
                 using (var writer = File.AppendText(logFile))
                 {
@@ -115,9 +115,6 @@ namespace Ladeskab
                 Console.WriteLine("Forkert RFID tag");
             }
         }
-
-        // Her mangler de andre trigger handlere
-
 
     }
 }

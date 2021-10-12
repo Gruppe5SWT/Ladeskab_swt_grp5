@@ -9,17 +9,13 @@ namespace Ladeskab
 {
     public class RFID : IRFID
     {
-        private bool _oldRFID;
         public event EventHandler<RFIDDetectedEventArgs> RFIDDetectedEvent;
-        public void SetRFID(bool newRFID)
-            {
-            if (newRFID != _oldRFID)
-                {
-                OnRFIDDetected(new RFIDDetectedEventArgs { RFID = newRFID });
-                }
-            }
+        public void SetRFID(int newRFID)
+        {
+            OnRFIDDetected(new RFIDDetectedEventArgs { RFID = newRFID });
+        }
 
-        protected virtual void OnRFIDDetected(RFIDDetectedEventArgs e)
+        private void OnRFIDDetected(RFIDDetectedEventArgs e)
         {
             RFIDDetectedEvent?.Invoke(this, e);
         }

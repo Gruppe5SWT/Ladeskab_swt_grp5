@@ -8,7 +8,7 @@ namespace Ladeskab.Interfaces
 {
     public class RFIDDetectedEventArgs : EventArgs
     {
-        public bool RFID { get; set; }
+        public int RFID { get; set; }
     }
     public interface IRFID
     {

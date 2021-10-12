@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Ladeskab.Interfaces;
+using Ladeskab;
 
 namespace UsbSimulator.Test
 {
     [TestFixture]
-    public class TestUsbChargerSimulator
+    public class UsbChargerSimulatorUnitTests
     {
         private UsbChargerSimulator _uut;
         [SetUp]

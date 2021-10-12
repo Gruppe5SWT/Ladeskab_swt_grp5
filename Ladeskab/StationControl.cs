@@ -34,15 +34,15 @@ namespace Ladeskab
             _display = display;
             _door.DoorStateChangedEvent += HandleDoorStateChangedEvent;
         }
-         private void HandleDoorStateChangedEvent(object o, DoorStateChangedEventArgs e)
-         {
+        private void HandleDoorStateChangedEvent(object o, DoorStateChangedEventArgs e)
+        {
             if (e.Open)
             {
-                _display.ShowConnectPhoneRequest();
+                DoorOpened();
             }
             else
-                _display.ShowLoadRFIDRequest();
-         }
+                DoorClosed();
+        }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
@@ -77,48 +77,43 @@ namespace Ladeskab
 
                 case LadeskabState.Locked:
                     // Check for correct ID
-                    if (id == _oldId)
-                    {
-                        _charger.StopCharge();
-                        _door.UnlockDoor();
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
-                        }
-
-                        Console.WriteLine("Tag din telefon ud af skabet og luk døren");
-                        _state = LadeskabState.Available;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Forkert RFID tag");
-                    }
+                    CheckID(_oldId, id);
 
                     break;
             }
 
-           
+
 
         }
 
         public void DoorOpened()
         {
-            throw new NotImplementedException();
+            _display.ShowConnectPhoneRequest();
         }
 
         public void DoorClosed()
         {
-            throw new NotImplementedException();
-        }
-
-        public void RFIDDetected(int id)
-        {
-            throw new NotImplementedException();
+            _display.ShowLoadRFIDRequest();
         }
 
         public void CheckID(int OldId, int Id)
         {
-            throw new NotImplementedException();
+            if (Id == _oldId)
+            {
+                _charger.StopCharge();
+                _door.UnlockDoor();
+                using (var writer = File.AppendText(logFile))
+                {
+                    writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", Id);
+                }
+
+                Console.WriteLine("Tag din telefon ud af skabet og luk døren");
+                _state = LadeskabState.Available;
+            }
+            else
+            {
+                Console.WriteLine("Forkert RFID tag");
+            }
         }
 
         // Her mangler de andre trigger handlere

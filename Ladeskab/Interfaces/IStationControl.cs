@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ladeskab.Interfaces
 {
-    interface IStationControl
+    public interface IStationControl
     {
         void DoorOpened();
         void DoorClosed();

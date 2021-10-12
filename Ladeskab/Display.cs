@@ -11,27 +11,42 @@ namespace Ladeskab
     {
         public void ShowConnectionError()
         {
-            Console.WriteLine("Connection Error!");
+            Console.WriteLine("Charging Area: Connection Error!");
         }
 
         public void ShowConnectPhoneRequest()
         {
-            Console.WriteLine("Please connect phone...");
+            Console.WriteLine("System Area: Please connect phone...");
         }
 
         public void ShowDisconnectPhoneRequestion()
         {
-            Console.WriteLine("Please disconnect phone...");
+            Console.WriteLine("System Area: Please disconnect phone...");
         }
 
         public void ShowLoadRFIDRequest()
         {
-            Console.WriteLine("Please load RFID...");
+            Console.WriteLine("System Area: Please load RFID...");
         }
 
         public void ShowRFIDError()
         {
-            Console.WriteLine("RFID Error!");
+            Console.WriteLine("System Area: RFID Error!");
+        }
+
+        public void ShowPhoneCharging()
+        {
+            Console.WriteLine("Charging Area: Phone is charging...");
+        }
+
+        public void ShowPhoneDoneCharging()
+        {
+            Console.WriteLine("Charging Area: Phone is fully charged...");
+        }
+
+        public void ShowChargingError()
+        {
+            Console.WriteLine("Charging Area: Charging Error!")
         }
     }
 }

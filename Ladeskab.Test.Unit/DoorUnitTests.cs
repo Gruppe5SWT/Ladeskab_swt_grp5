@@ -2,7 +2,7 @@ using Ladeskab.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace Ladeskab.Test.Unit_
+namespace Ladeskab.Test.Unit
 {
     public class Tests
     {

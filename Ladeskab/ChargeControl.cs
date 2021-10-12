@@ -21,6 +21,16 @@ namespace Ladeskab
 
         public bool Connected { get; set; }
 
+        public void StartCharge()
+        {
+            _charger.StartCharge();
+        }
+
+        public void StopCharge()
+        {
+            _charger.StopCharge();
+        }
+
         private void HandleCurrentEvent(object sender, CurrentEventArgs e)
         {
             double currentCurrent = e.Current;
@@ -33,14 +43,12 @@ namespace Ladeskab
             else if(currentCurrent > 0 && currentCurrent <= 5)
             {
                 Connected = true;
-                _charger.StopCharge();
                 _display.ShowPhoneDoneCharging();
 
             }
             else if(currentCurrent > 5 && currentCurrent <= 500)
             {
                 Connected = true;
-                _charger.StartCharge();
                 _display.ShowPhoneCharging();
             }
             else

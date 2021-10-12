@@ -17,6 +17,7 @@ namespace Ladeskab
         {
             _charger = charger;
             _display = display;
+            _charger.CurrentValueEvent += HandleCurrentValueEvent;
         }
 
         public bool Connected { get; set; }
@@ -31,7 +32,7 @@ namespace Ladeskab
             _charger.StopCharge();
         }
 
-        private void HandleCurrentEvent(object sender, CurrentEventArgs e)
+        private void HandleCurrentValueEvent(object sender, CurrentEventArgs e)
         {
             double currentCurrent = e.Current;
 

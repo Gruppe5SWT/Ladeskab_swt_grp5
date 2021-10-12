@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ladeskab
 {
-    public class StationControl
+    public class StationControl : IStationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
         private enum LadeskabState
@@ -101,6 +101,28 @@ namespace Ladeskab
 
         }
 
+        public void DoorOpened()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DoorClosed()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RFIDDetected(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CheckID(int OldId, int Id)
+        {
+            throw new NotImplementedException();
+        }
+
         // Her mangler de andre trigger handlere
+
+
     }
 }

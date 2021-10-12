@@ -13,5 +13,9 @@ namespace Ladeskab.Interfaces
         void ShowConnectionError();
         void ShowLoadRFIDRequest();
         void ShowRFIDError();
+
+        void ShowPhoneCharging();
+        void ShowPhoneDoneCharging();
+        void ShowChargingError();
     }
 }

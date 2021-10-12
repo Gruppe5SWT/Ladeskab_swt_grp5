@@ -4,29 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ladeskab.Interfaces;
-using UsbSimulator;
+
 
 namespace Ladeskab
 {
     public class ChargeControl : IChargeControl
     {
         private IUsbCharger _charger;
+        private IDisplay _display;
 
-        public ChargeControl(IUsbCharger charger) 
+        public ChargeControl(IUsbCharger charger, IDisplay display) 
         {
             _charger = charger;
+            _display = display;
         }
 
-        public bool Connected { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool Connected { get; set; }
 
         public void StartCharge()
         {
-            throw new NotImplementedException();
+            _charger.StartCharge();
         }
 
         public void StopCharge()
         {
-            throw new NotImplementedException();
+            _charger.StopCharge();
         }
 
         private void HandleCurrentEvent(object sender, CurrentEventArgs e)
@@ -36,21 +38,24 @@ namespace Ladeskab
             if(currentCurrent == 0)
             {
                 Connected = false;
+                _display.ShowConnectionError();
             }
             else if(currentCurrent > 0 && currentCurrent <= 5)
             {
                 Connected = true;
-                _charger.StopCharge();
+                _display.ShowPhoneDoneCharging();
+
             }
             else if(currentCurrent > 5 && currentCurrent <= 500)
             {
                 Connected = true;
-                _charger.StartCharge();
+                _display.ShowPhoneCharging();
             }
             else
             {
                 Connected = true;
                 _charger.StopCharge();
+                _display.ShowChargingError();
             }
         }
 

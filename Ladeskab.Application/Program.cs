@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ladeskab.Interfaces;
+using System;
 
 namespace Ladeskab.Application
 { 
@@ -6,7 +7,12 @@ namespace Ladeskab.Application
     {
         static void Main(string[] args)
         {
-				// Assemble your system here from all the classes
+            // Assemble your system here from all the classes
+            Door door = new();
+            RFID Rfid = new();
+
+
+
 
             bool finish = false;
             do
@@ -35,7 +41,7 @@ namespace Ladeskab.Application
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        rfidReader.OnRfidRead(id);
+                        Rfid.SetRFID(id);
                         break;
 
                     default:

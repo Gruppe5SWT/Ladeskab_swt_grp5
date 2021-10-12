@@ -10,7 +10,6 @@ namespace Ladeskab.Interfaces
     {
         void DoorOpened();
         void DoorClosed();
-        void RFIDDetected(int id);
         void CheckID(int OldId, int Id);
     }
 }

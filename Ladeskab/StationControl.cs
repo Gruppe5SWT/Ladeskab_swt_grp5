@@ -29,7 +29,7 @@ namespace Ladeskab
 
         public StationControl(IDoor door, IChargeControl chargeControl, IDisplay display)
         {
-            _charger = chargeControl;
+            _chargeControl = chargeControl;
             _door = door;
             _display = display;
             _door.DoorStateChangedEvent += HandleDoorStateChangedEvent;

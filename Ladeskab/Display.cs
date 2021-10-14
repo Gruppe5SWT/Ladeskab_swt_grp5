@@ -48,5 +48,10 @@ namespace Ladeskab
         {
             Console.WriteLine("Charging Area: Charging Error!");
         }
+
+        public void ShowMessage(string message)
+        {
+            Console.WriteLine($"{message}");
+        }
     }
 }

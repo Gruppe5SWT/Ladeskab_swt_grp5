@@ -1,6 +1,7 @@
 ﻿using Ladeskab.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+using System.IO;
 
 namespace Ladeskab.Test.Unit
 {
@@ -11,6 +12,8 @@ namespace Ladeskab.Test.Unit
         IDoor _door;
         IChargeControl _chargeControl;
         IDisplay _display;
+        IRFID _rfid;
+        ILogFile _logFile;
 
         [SetUp]
         public void Setup()
@@ -19,8 +22,10 @@ namespace Ladeskab.Test.Unit
             _chargeControl = Substitute.For<IChargeControl>();
             _display = Substitute.For<IDisplay>();
             _door = Substitute.For<IDoor>();
+            _rfid = Substitute.For<IRFID>();
+            _logFile = Substitute.For<ILogFile>();
 
-            _uut = new StationControl(_door, _chargeControl, _display);
+            _uut = new StationControl(_door, _chargeControl, _display, _rfid, _logFile);
 
             
 
@@ -45,7 +50,15 @@ namespace Ladeskab.Test.Unit
             _display.Received(1).ShowLoadRFIDRequest();
         }
 
+        [TestCase(1, 2)]
+        [TestCase(0, 1)]
+        public void CheckID_IDNotEqualToOldID_ShowWrongRFIDMessage(int OldId, int Id)
+        {
+            _uut.CheckID(OldId, Id);
 
+
+            
+        }
 
         
     }

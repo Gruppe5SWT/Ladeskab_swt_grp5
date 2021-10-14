@@ -1,4 +1,5 @@
-﻿using Ladeskab.Interfaces;
+﻿using System.IO;
+using Ladeskab.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -16,10 +17,44 @@ namespace Ladeskab.Test.Unit
             _uut = new LogFile(_dateTime);
         }
 
-        [Test]
-        public void LogDoorLocked_()
+        [TestCase("14/10/2021 11:43:02", 22)]
+        [TestCase("01/01/1921 00:00:22", 123)]
+        [TestCase("03/04/2000 15:20:39", 32)]
+        public void LogDoorLocked_LoggedCorrectDate(string dateTime, int id)
         {
-            
+            _dateTime.getDateTime().Returns(dateTime);
+
+            _uut.LogDoorLocked(id);
+
+            FileStream fs = new FileStream("LogFile.txt", FileMode.OpenOrCreate);
+            StreamReader s = new StreamReader(fs);
+
+            string expected = $"{dateTime}: Locked with RFID {id}";
+
+            Assert.AreEqual(expected, s.ReadLine());
+
+            s.Close();
+            fs.Close();
+        }
+
+        [TestCase("14/10/2021 11:43:02", 22)]
+        [TestCase("01/01/1921 00:00:22", 123)]
+        [TestCase("03/04/2000 15:20:39", 32)]
+        public void LogDoorUnlocked_LoggedCorrectDate(string dateTime, int id)
+        {
+            _dateTime.getDateTime().Returns(dateTime);
+
+            _uut.LogDoorUnlocked(id);
+
+            FileStream fs = new FileStream("LogFile.txt", FileMode.OpenOrCreate);
+            StreamReader s = new StreamReader(fs);
+
+            string expected = $"{dateTime}: Unlocked with RFID {id}";
+
+            Assert.AreEqual(expected, s.ReadLine());
+
+            s.Close();
+            fs.Close();
         }
     }
 }

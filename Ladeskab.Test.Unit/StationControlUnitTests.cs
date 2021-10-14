@@ -64,10 +64,10 @@ namespace Ladeskab.Test.Unit
             _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("Forkert RFID tag")));
         }
 
+        [TestCase(-1, -1)]
         [TestCase(199999, 199999)]
         [TestCase(1, 1)]
         [TestCase(0, 0)]
-        [TestCase(-1, -1)]
         [TestCase(-10, -10)]
         [TestCase(-100, -100)]
         public void CheckID_IDIsEqualToOldID_ChargeControlStopCharge(int OldId, int Id)
@@ -100,7 +100,7 @@ namespace Ladeskab.Test.Unit
         {
             _uut.CheckID(OldId, Id);
 
-            _logFile.Received(1).LogDoorLocked(Id);
+            _logFile.Received(1).LogDoorUnlocked(Id);
         }
         
         [TestCase(199999, 199999)]

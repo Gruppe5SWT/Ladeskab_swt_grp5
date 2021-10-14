@@ -98,9 +98,10 @@ namespace Ladeskab
 
         public void CheckID(int OldId, int Id)
         {
-            if (Id == _oldId)
+            if (Id == OldId)
             {
                 _chargeControl.StopCharge();
+
                 _door.UnlockDoor();
                 
                 _ILogFile.LogDoorUnlocked(Id);

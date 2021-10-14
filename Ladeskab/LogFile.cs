@@ -8,7 +8,7 @@ using Ladeskab.Interfaces;
 
 namespace Ladeskab
 {
-    class LogFile : ILogFile
+    public class LogFile : ILogFile
     {
         IDateTime _dateTime;
 

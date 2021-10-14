@@ -11,7 +11,7 @@ namespace Ladeskab
     public class StationControl : IStationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum LadeskabState
+        public enum LadeskabState
         {
             Available,
             Locked,
@@ -19,7 +19,8 @@ namespace Ladeskab
         };
 
         // Her mangler flere member variable
-        private LadeskabState _state;
+         LadeskabState _state;
+        public LadeskabState State { get; private set; }
         private IChargeControl _chargeControl;
         private int _oldId;
         private IDoor _door;

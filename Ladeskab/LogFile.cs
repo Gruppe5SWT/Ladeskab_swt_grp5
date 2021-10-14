@@ -10,21 +10,28 @@ namespace Ladeskab
 {
     class LogFile : ILogFile
     {
-        public void LogDoorLocked()
+        IDateTime _dateTime;
+
+        public LogFile(IDateTime dateTime)
+        {
+            _dateTime = dateTime;
+        }
+
+        public void LogDoorLocked(int id)
         {
             FileStream fs = new FileStream("LogFile.txt", FileMode.OpenOrCreate);
             StreamWriter s = new StreamWriter(fs);
-            s.WriteLine(DateTime.Now + ": Door Locked");
+            s.WriteLine(_dateTime.getDateTime() + $": Locked with RFID {id}");
             s.Close();
             fs.Close();
    
         }
 
-        public void LogDoorUnlocked()
+        public void LogDoorUnlocked(int id)
         {
             FileStream fs = new FileStream("LogFile.txt", FileMode.OpenOrCreate);
             StreamWriter s = new StreamWriter(fs);
-            s.WriteLine(DateTime.Now + ": Door Unlocked");
+            s.WriteLine(_dateTime.getDateTime() + $": Unlocked with RFID {id}");
             s.Close();
             fs.Close();
 

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Ladeskab.Interfaces
 {
-    public interface ILogFile
+    public interface IDateTime
     {
-        void LogDoorLocked(int id);
-        void LogDoorUnlocked(int id);
+        string getDateTime();
     }
 }

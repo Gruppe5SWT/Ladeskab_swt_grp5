@@ -20,6 +20,22 @@ namespace Ladeskab.Test.Unit
         }
 
         [Test]
+        public void StartCharge_CallUSBStartChargeFunction()
+        {
+            _uut.StartCharge();
+            _usbCharger.Received(1).StartCharge();
+        }
+
+
+        [Test]
+        public void StopCharge_CallUSBStopChargeFunction()
+        {
+            _uut.StopCharge();
+            _usbCharger.Received(1).StopCharge();
+        }
+
+
+        [Test]
         public void HandleCurrentValueEvent_NoConnection()
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 0 });

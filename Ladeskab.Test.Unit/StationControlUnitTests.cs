@@ -43,6 +43,7 @@ namespace Ladeskab.Test.Unit
             _display.Received(1).ShowConnectPhoneRequest();
         }
 
+        [Test]
         public void DoorClosed_DoorStateChanged_ShowLoadRFIDRequestCalledOnDisplay()
         {
             _uut.DoorClosed();

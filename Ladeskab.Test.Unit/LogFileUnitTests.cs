@@ -19,7 +19,7 @@ namespace Ladeskab.Test.Unit
         [Test]
         public void LogDoorLocked_()
         {
-
+            
         }
     }
 }

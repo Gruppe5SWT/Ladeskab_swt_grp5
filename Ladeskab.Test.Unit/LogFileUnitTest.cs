@@ -10,6 +10,11 @@ namespace Ladeskab.Test.Unit
         IDateTime _dateTime;
 
         [SetUp]
+        public void SetUp() { }
         [Test]
+        public void Test1()
+        {
+
+        }
     }
 }

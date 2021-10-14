@@ -27,8 +27,6 @@ namespace Ladeskab
         private IRFID _RFID;
         private ILogFile _ILogFile;
 
-    
-
         public StationControl(IDoor door, IChargeControl chargeControl, IDisplay display, IRFID rfid, ILogFile logFile)
         {
             _chargeControl = chargeControl;
@@ -85,9 +83,6 @@ namespace Ladeskab
 
                     break;
             }
-
-
-
         }
 
         public void DoorOpened()

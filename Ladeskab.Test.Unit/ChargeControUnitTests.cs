@@ -20,7 +20,7 @@ namespace Ladeskab.Test.Unit
         }
 
         [Test]
-        public void StartCharge_CallUSBStartChargeFunction()
+        public void StartCharge_ChargeControlStartCharge_CallUSBStartCharge()
         {
             _uut.StartCharge();
             _usbCharger.Received(1).StartCharge();
@@ -28,7 +28,7 @@ namespace Ladeskab.Test.Unit
 
 
         [Test]
-        public void StopCharge_CallUSBStopChargeFunction()
+        public void StopCharge_ChargeControlStopCharge_CallUSBStopCharge()
         {
             _uut.StopCharge();
             _usbCharger.Received(1).StopCharge();
@@ -36,7 +36,7 @@ namespace Ladeskab.Test.Unit
 
 
         [Test]
-        public void HandleCurrentValueEvent_NoConnection()
+        public void HandleCurrentValueEvent_EventArgIsZero_DisplayExpected()
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 0 });
             Assert.That(_uut.Connected, Is.False);
@@ -46,7 +46,7 @@ namespace Ladeskab.Test.Unit
         [TestCase(1)]
         [TestCase(4)]
         [TestCase(5)]
-        public void HandleCurrentValueEvent_FullyCharged(int newCurrent)
+        public void HandleCurrentValueEvent_EventSignalsFullyCharged_DisplayExpected(int newCurrent)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = newCurrent });
             Assert.That(_uut.Connected, Is.True);
@@ -58,7 +58,7 @@ namespace Ladeskab.Test.Unit
         [TestCase(250)]
         [TestCase(499)]
         [TestCase(500)]
-        public void HandleCurrentValueEvent_PhoneCharging(int newCurrent)
+        public void HandleCurrentValueEvent_EventSignalsCharging_DisplayExpected(int newCurrent)
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = newCurrent });
             Assert.That(_uut.Connected, Is.True);
@@ -66,7 +66,7 @@ namespace Ladeskab.Test.Unit
         }
 
         [Test]
-        public void HandleCurrentValueEvent_PhoneChargingError()
+        public void HandleCurrentValueEvent_EventCurrentTooHigh_PhoneChargingError()
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 501 });
             Assert.That(_uut.Connected, Is.True);

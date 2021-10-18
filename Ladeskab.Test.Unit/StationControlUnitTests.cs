@@ -186,6 +186,7 @@ namespace Ladeskab.Test.Unit
             
         }
 
+        [Test]
         public void RfidDetected_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_ShowMessageLocked()
         {
 

@@ -19,7 +19,7 @@ namespace Ladeskab
             Console.WriteLine("System Area: Please connect phone...");
         }
 
-        public void ShowDisconnectPhoneRequestion()
+        public void ShowDisconnectPhoneRequest()
         {
             Console.WriteLine("System Area: Please disconnect phone...");
         }

@@ -11,7 +11,7 @@ namespace Ladeskab
     public class StationControl : IStationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum LadeskabState
+        public enum LadeskabState
         {
             Available,
             Locked,
@@ -19,15 +19,14 @@ namespace Ladeskab
         };
 
         // Her mangler flere member variable
-        private LadeskabState _state;
+         LadeskabState _state;
+        public LadeskabState State { get; private set; }
         private IChargeControl _chargeControl;
         private int _oldId;
         private IDoor _door;
         private IDisplay _display;
         private IRFID _RFID;
         private ILogFile _ILogFile;
-
-    
 
         public StationControl(IDoor door, IChargeControl chargeControl, IDisplay display, IRFID rfid, ILogFile logFile)
         {
@@ -85,9 +84,6 @@ namespace Ladeskab
 
                     break;
             }
-
-
-
         }
 
         public void DoorOpened()
@@ -102,9 +98,10 @@ namespace Ladeskab
 
         public void CheckID(int OldId, int Id)
         {
-            if (Id == _oldId)
+            if (Id == OldId)
             {
                 _chargeControl.StopCharge();
+
                 _door.UnlockDoor();
                 
                 _ILogFile.LogDoorUnlocked(Id);

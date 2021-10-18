@@ -9,7 +9,7 @@ namespace Ladeskab.Interfaces
     public interface IDisplay
     {
         void ShowConnectPhoneRequest();
-        void ShowDisconnectPhoneRequestion();
+        void ShowDisconnectPhoneRequest();
         void ShowConnectionError();
         void ShowLoadRFIDRequest();
         void ShowRFIDError();

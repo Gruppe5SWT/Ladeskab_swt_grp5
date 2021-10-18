@@ -63,13 +63,13 @@ namespace Ladeskab
                         OldId = e.RFID;
                         
                         _ILogFile.LogDoorLocked(e.RFID);
-                        _display.ShowMessage("System Area: Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+                        _display.ShowMessage("System Area: The locker has been locked and your phone is being charged. Use your RFID to unlock.");
 
                         State = LadeskabState.Locked;
                     }
                     else
                     {
-                        _display.ShowMessage("System Area: Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
+                        _display.ShowMessage("Charging Area: Your phone is not connected properly. Try again.");
                     }
 
                     break;
@@ -106,13 +106,13 @@ namespace Ladeskab
                 
                 _ILogFile.LogDoorUnlocked(Id);
                 
-                _display.ShowMessage("Charging Area: Tag din telefon ud af skabet og luk døren");
+                _display.ShowMessage("System Area: Take your phone and close the door.");
                 
                 State = LadeskabState.Available;
             }
             else
             {
-                _display.ShowMessage("Charging Area: Forkert RFID tag");
+                _display.ShowMessage("System Area: Wrong RFID tag");
             }
         }
 

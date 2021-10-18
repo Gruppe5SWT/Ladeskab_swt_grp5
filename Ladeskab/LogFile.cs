@@ -21,7 +21,10 @@ namespace Ladeskab
         {
             FileStream fs = new FileStream("LogFile.txt", FileMode.OpenOrCreate);
             StreamWriter s = new StreamWriter(fs);
+
+            
             s.WriteLine(_dateTime.getDateTime() + $": Locked with RFID {id}");
+            
             s.Close();
             fs.Close();
    

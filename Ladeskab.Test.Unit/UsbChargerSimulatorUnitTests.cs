@@ -47,7 +47,7 @@ namespace UsbSimulator.Test
 
             _uut.StartCharge();
 
-            System.Threading.Thread.Sleep(1100);
+            System.Threading.Thread.Sleep(11000);
 
             Assert.That(numValues, Is.GreaterThan(4));
         }
@@ -60,7 +60,7 @@ namespace UsbSimulator.Test
 
             _uut.StartCharge();
 
-            System.Threading.Thread.Sleep(300);
+            System.Threading.Thread.Sleep(3000);
 
             Assert.That(lastValue, Is.LessThan(500.0));
         }
@@ -70,7 +70,7 @@ namespace UsbSimulator.Test
         {
             _uut.StartCharge();
 
-            System.Threading.Thread.Sleep(300);
+            System.Threading.Thread.Sleep(3000);
 
             Assert.That(_uut.CurrentValue, Is.LessThan(500.0));
         }
@@ -83,7 +83,7 @@ namespace UsbSimulator.Test
 
             _uut.StartCharge();
 
-            System.Threading.Thread.Sleep(1100);
+            System.Threading.Thread.Sleep(11000);
 
             Assert.That(lastValue, Is.EqualTo(_uut.CurrentValue));
         }
@@ -111,7 +111,7 @@ namespace UsbSimulator.Test
             pause.Reset();
 
             // Wait for next tick, should send overloaded value
-            pause.WaitOne(300);
+            pause.WaitOne(3000);
 
             Assert.That(lastValue, Is.GreaterThan(500.0));
         }
@@ -139,7 +139,7 @@ namespace UsbSimulator.Test
             pause.Reset();
 
             // Wait for next tick, should send disconnected value
-            pause.WaitOne(300);
+            pause.WaitOne(3000);
 
             Assert.That(lastValue, Is.Zero);
         }
@@ -194,7 +194,7 @@ namespace UsbSimulator.Test
 
             _uut.StartCharge();
 
-            System.Threading.Thread.Sleep(300);
+            System.Threading.Thread.Sleep(3000);
 
             _uut.StopCharge();
 
@@ -221,13 +221,13 @@ namespace UsbSimulator.Test
 
             _uut.StartCharge();
 
-            System.Threading.Thread.Sleep(300);
+            System.Threading.Thread.Sleep(3000);
 
             _uut.StopCharge();
             lastValue = 1000;
 
             // Wait for a tick
-            System.Threading.Thread.Sleep(300);
+            System.Threading.Thread.Sleep(3000);
 
             // No new value received
             Assert.That(lastValue, Is.EqualTo(1000.0));

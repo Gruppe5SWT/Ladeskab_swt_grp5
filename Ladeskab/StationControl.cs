@@ -69,7 +69,7 @@ namespace Ladeskab
                     }
                     else
                     {
-                        _display.ShowMessage("Charging Area: Your phone is not connected properly. Try again.");
+                        _display.ShowMessage("System Area: Your phone is not connected properly. Try again.");
                     }
 
                     break;

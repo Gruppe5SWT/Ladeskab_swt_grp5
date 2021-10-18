@@ -12,7 +12,7 @@ namespace Ladeskab
         private const double FullyChargedCurrent = 2.5; // mA
         private const double OverloadCurrent = 750; // mA
         private const int ChargeTimeMinutes = 20; // minutes
-        private const int CurrentTickInterval = 250; // ms
+        private const int CurrentTickInterval = 2500; // ms
 
         public event EventHandler<CurrentEventArgs> CurrentValueEvent;
 

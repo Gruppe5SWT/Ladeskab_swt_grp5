@@ -19,10 +19,10 @@ namespace Ladeskab
         };
 
         // Her mangler flere member variable
-         LadeskabState _state;
-        public LadeskabState State { get; private set; }
+        public LadeskabState State { get; set; }
+        public int OldId { get; set; }  
+
         private IChargeControl _chargeControl;
-        private int _oldId;
         private IDoor _door;
         private IDisplay _display;
         private IRFID _RFID;
@@ -36,7 +36,7 @@ namespace Ladeskab
             _RFID = rfid;
             _ILogFile = logFile;
             _door.DoorStateChangedEvent += HandleDoorStateChangedEvent;
-            _RFID.RFIDDetectedEvent += RfidDetected;
+            _RFID.RFIDDetectedEvent += HandleRFIDDetectedEvent;
             
         }
         private void HandleDoorStateChangedEvent(object o, DoorStateChangedEventArgs e)
@@ -50,7 +50,7 @@ namespace Ladeskab
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
-        private void RfidDetected(object o, RFIDDetectedEventArgs e)
+        private void HandleRFIDDetectedEvent(object o, RFIDDetectedEventArgs e)
         {
             switch (State)
             {
@@ -60,7 +60,7 @@ namespace Ladeskab
                     {
                         _door.LockDoor();
                         _chargeControl.StartCharge();
-                        _oldId = e.RFID;
+                        OldId = e.RFID;
                         
                         _ILogFile.LogDoorLocked(e.RFID);
                         _display.ShowMessage("Charging Area: Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
@@ -80,7 +80,7 @@ namespace Ladeskab
 
                 case LadeskabState.Locked:
                     // Check for correct ID
-                    CheckID(_oldId, e.RFID);
+                    CheckID(OldId, e.RFID);
 
                     break;
             }

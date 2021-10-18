@@ -29,7 +29,7 @@ namespace Ladeskab.Test.Unit
 
             
 
-            //_uut.DoorStateChangedEvent += (o, args) =>
+            //_uut.Rfid += (o, args) =>
             //{
             //    _receivedEventArgs = args;
             //};
@@ -133,6 +133,115 @@ namespace Ladeskab.Test.Unit
             
         }
 
-        
+        [Test]
+        public void RfidDetected_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_LockDoor()
+        {
+
+            _uut.State = StationControl.LadeskabState.Available;
+            _chargeControl.Connected.Returns(true);
+
+
+            _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs {RFID = 1337});
+
+            _door.Received(1).LockDoor();
+            
+        }
+        [Test]
+        public void RfidDetected_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_ChargeControlStartCharge()
+        {
+
+            _uut.State = StationControl.LadeskabState.Available;
+            _chargeControl.Connected.Returns(true);
+            
+
+            _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs {RFID = 1337});
+
+            _chargeControl.Received(1).StartCharge();
+            
+        }
+        [Test]
+        public void RfidDetected_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_oldIDsetToNewID()
+        {
+
+            _uut.State = StationControl.LadeskabState.Available;
+            _chargeControl.Connected.Returns(true);
+
+            int newRFID = 1337;
+            _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs {RFID = newRFID});
+
+            Assert.That(_uut.OldId.Equals(newRFID));
+            
+        }
+        [Test]
+        public void RfidDetected_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_LogDoorLocked()
+        {
+
+            _uut.State = StationControl.LadeskabState.Available;
+            _chargeControl.Connected.Returns(true);
+
+            int newRFID = 1337;
+            _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs {RFID = newRFID});
+
+            _logFile.Received(1).LogDoorLocked(newRFID);
+            
+        }
+
+        public void RfidDetected_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_ShowMessageLocked()
+        {
+
+            _uut.State = StationControl.LadeskabState.Available;
+            _chargeControl.Connected.Returns(true);
+
+            int newRFID = 1337;
+            _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs {RFID = newRFID});
+
+            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("Charing Area: Skabet er låst")));
+            
+        }
+        [Test]
+        public void RfidDetected_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_LadeskabStateIsLocked()
+        {
+
+            _uut.State = StationControl.LadeskabState.Available;
+            _chargeControl.Connected.Returns(true);
+
+            int newRFID = 1337;
+            _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs {RFID = newRFID});
+
+            Assert.That(_uut.State.Equals(StationControl.LadeskabState.Locked));
+
+        }
+
+        [Test]
+        public void RfidDetected_LadeskabAvailableChargeControlNotConnectedRFIDDetectedEvent_DisplayShowMessagePhoneNotConnected()
+        {
+
+            _uut.State = StationControl.LadeskabState.Available;
+            _chargeControl.Connected.Returns(false);
+
+            int newRFID = 1337;
+            _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs { RFID = newRFID });
+
+            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("Charging Area: Din telefon er ikke ordentlig tilsluttet")));
+
+
+        }
+
+        [Test]
+        public void RfidDetected_LadeskabLockedRFIDDetectedEventWithMatchingID_LadeskabStateIsAvailable()
+        {
+
+            _uut.State = StationControl.LadeskabState.Locked;
+            int newRFID = 1337;
+            _uut.OldId = newRFID;
+
+            _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs { RFID = newRFID });
+
+            Assert.That(_uut.State.Equals(StationControl.LadeskabState.Available));
+        }
+
+
+
+
     }
 }

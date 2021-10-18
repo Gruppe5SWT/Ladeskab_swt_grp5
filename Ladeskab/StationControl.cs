@@ -52,7 +52,7 @@ namespace Ladeskab
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(object o, RFIDDetectedEventArgs e)
         {
-            switch (_state)
+            switch (State)
             {
                 case LadeskabState.Available:
                     // Check for ladeforbindelse
@@ -65,7 +65,7 @@ namespace Ladeskab
                         _ILogFile.LogDoorLocked(e.RFID);
                         _display.ShowMessage("Charging Area: Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
 
-                        _state = LadeskabState.Locked;
+                        State = LadeskabState.Locked;
                     }
                     else
                     {
@@ -108,7 +108,7 @@ namespace Ladeskab
                 
                 _display.ShowMessage("Charging Area: Tag din telefon ud af skabet og luk døren");
                 
-                _state = LadeskabState.Available;
+                State = LadeskabState.Available;
             }
             else
             {

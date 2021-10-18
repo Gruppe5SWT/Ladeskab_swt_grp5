@@ -11,7 +11,7 @@ namespace Ladeskab
     public class StationControl : IStationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum LadeskabState
+        public enum LadeskabState
         {
             Available,
             Locked,
@@ -19,9 +19,10 @@ namespace Ladeskab
         };
 
         // Her mangler flere member variable
-        private LadeskabState _state;
+        public LadeskabState State { get; set; }
+        public int OldId { get; set; }  
+
         private IChargeControl _chargeControl;
-        private int _oldId;
         private IDoor _door;
         private IDisplay _display;
         private IRFID _RFID;
@@ -35,7 +36,7 @@ namespace Ladeskab
             _RFID = rfid;
             _ILogFile = logFile;
             _door.DoorStateChangedEvent += HandleDoorStateChangedEvent;
-            _RFID.RFIDDetectedEvent += RfidDetected;
+            _RFID.RFIDDetectedEvent += HandleRFIDDetectedEvent;
             
         }
         private void HandleDoorStateChangedEvent(object o, DoorStateChangedEventArgs e)
@@ -49,9 +50,9 @@ namespace Ladeskab
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
-        private void RfidDetected(object o, RFIDDetectedEventArgs e)
+        private void HandleRFIDDetectedEvent(object o, RFIDDetectedEventArgs e)
         {
-            switch (_state)
+            switch (State)
             {
                 case LadeskabState.Available:
                     // Check for ladeforbindelse
@@ -59,12 +60,12 @@ namespace Ladeskab
                     {
                         _door.LockDoor();
                         _chargeControl.StartCharge();
-                        _oldId = e.RFID;
+                        OldId = e.RFID;
                         
                         _ILogFile.LogDoorLocked(e.RFID);
                         _display.ShowMessage("Charging Area: Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
 
-                        _state = LadeskabState.Locked;
+                        State = LadeskabState.Locked;
                     }
                     else
                     {
@@ -79,7 +80,7 @@ namespace Ladeskab
 
                 case LadeskabState.Locked:
                     // Check for correct ID
-                    CheckID(_oldId, e.RFID);
+                    CheckID(OldId, e.RFID);
 
                     break;
             }
@@ -97,16 +98,17 @@ namespace Ladeskab
 
         public void CheckID(int OldId, int Id)
         {
-            if (Id == _oldId)
+            if (Id == OldId)
             {
                 _chargeControl.StopCharge();
+
                 _door.UnlockDoor();
                 
                 _ILogFile.LogDoorUnlocked(Id);
                 
                 _display.ShowMessage("Charging Area: Tag din telefon ud af skabet og luk døren");
                 
-                _state = LadeskabState.Available;
+                State = LadeskabState.Available;
             }
             else
             {

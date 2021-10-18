@@ -44,7 +44,7 @@ namespace Ladeskab.Test.Unit
         }
 
         [TestCase(1)]
-        [TestCase(3)]
+        [TestCase(4)]
         [TestCase(5)]
         public void HandleCurrentValueEvent_FullyCharged(int newCurrent)
         {
@@ -54,7 +54,9 @@ namespace Ladeskab.Test.Unit
         }
 
         [TestCase(6)]
+        [TestCase(7)]
         [TestCase(250)]
+        [TestCase(499)]
         [TestCase(500)]
         public void HandleCurrentValueEvent_PhoneCharging(int newCurrent)
         {

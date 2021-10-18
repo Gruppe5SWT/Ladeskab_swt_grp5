@@ -20,7 +20,7 @@ namespace Ladeskab.Test.Unit
         [TestCase("14/10/2021 11:43:02", 22)]
         [TestCase("01/01/1921 00:00:22", 123)]
         [TestCase("03/04/2000 15:20:39", 32)]
-        public void LogDoorLocked_LoggedCorrectDate(string dateTime, int id)
+        public void LogDoorLocked_SaveLockedDateAndId_LoggedCorrectDate(string dateTime, int id)
         {
             _dateTime.getDateTime().Returns(dateTime);
 
@@ -31,16 +31,18 @@ namespace Ladeskab.Test.Unit
 
             string expected = $"{dateTime}: Locked with RFID {id}";
 
+            
             Assert.That(s.ReadToEnd().Contains(expected));
 
             s.Close();
             fs.Close();
+            
         }
 
         [TestCase("14/10/2021 11:43:02", 22)]
         [TestCase("01/01/1921 00:00:22", 123)]
         [TestCase("03/04/2000 15:20:39", 32)]
-        public void LogDoorUnlocked_LoggedCorrectDate(string dateTime, int id)
+        public void LogDoorUnlocked_SaveUnlockedDateAndId_LoggedCorrectDate(string dateTime, int id)
         {
             _dateTime.getDateTime().Returns(dateTime);
 

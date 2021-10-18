@@ -16,37 +16,40 @@ namespace Ladeskab.Application
             StationControl stationControl = new(door, chargeControl, display, Rfid, logFile);
 
             bool finish = false;
+
+            display.ShowMessage(("System Area: Open the door (O) if you want to charge your phone"));
             do
             {
                 string input;
-                Console.WriteLine("Indtast E = exit, O = open, C = close, P = plug in phone, U = unplug phone, R = set RFID: ");
+                Console.WriteLine("Enter: E = exit, O = open, C = close, P = plug in phone, U = unplug phone, R = set RFID: ");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 
-                switch (input[0])
+                switch (input[0].ToString().ToUpper())
                 {
-                    case 'E':
+                    case "E":
                         finish = true;
                         break;
 
-                    case 'O':
+                    case "O":
                         door.OnDoorOpen();
                         break;
 
-                    case 'C':
+                    case "C":
                         door.OnDoorClose();
                         break;
 
-                    case 'P':
+                    case "P":
                         chargeControl.Connected = true;
+                        display.ShowMessage("System Area: Close the door (C)");
                         break;
 
-                    case 'U':
+                    case "U":
                         chargeControl.Connected = false;
                         break;
 
-                    case 'R':
-                        Console.WriteLine("Indtast RFID id: ");
+                    case "R":
+                        display.ShowMessage("System Area: Enter RFID");
                         string idString = Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);

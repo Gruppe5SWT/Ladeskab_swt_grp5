@@ -196,7 +196,7 @@ namespace Ladeskab.Test.Unit
             int newRFID = 1337;
             _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs {RFID = newRFID});
 
-            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("Charging Area: Skabet er låst")));
+            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("System Area: Skabet er låst")));
             
         }
         [Test]
@@ -223,7 +223,7 @@ namespace Ladeskab.Test.Unit
             int newRFID = 1337;
             _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs { RFID = newRFID });
 
-            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("Charging Area: Din telefon er ikke ordentlig tilsluttet")));
+            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("System Area: Din telefon er ikke ordentlig tilsluttet")));
 
 
         }

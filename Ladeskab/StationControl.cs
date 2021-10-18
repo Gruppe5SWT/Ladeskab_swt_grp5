@@ -63,13 +63,13 @@ namespace Ladeskab
                         OldId = e.RFID;
                         
                         _ILogFile.LogDoorLocked(e.RFID);
-                        _display.ShowMessage("Charging Area: Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+                        _display.ShowMessage("System Area: Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
 
                         State = LadeskabState.Locked;
                     }
                     else
                     {
-                        _display.ShowMessage("Charging Area: Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
+                        _display.ShowMessage("System Area: Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
                     }
 
                     break;

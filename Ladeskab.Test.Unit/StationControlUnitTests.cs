@@ -261,6 +261,15 @@ namespace Ladeskab.Test.Unit
             
         }
 
+        [Test]
+        public void HandleRFIDDetectedEvent_LadeskabDoorOpenRFIDDetectedEvent_DisplayDidNotShowAnything()
+        {
+            _uut.State = StationControl.LadeskabState.DoorOpen;
+            int newRFID = 1337;
 
+            _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs { RFID = newRFID });
+
+            _display.DidNotReceive().ShowMessage(Arg.Any<string>());
+        }
     }
 }

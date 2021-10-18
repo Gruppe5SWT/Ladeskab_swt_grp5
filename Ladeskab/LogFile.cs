@@ -19,7 +19,7 @@ namespace Ladeskab
 
         public void LogDoorLocked(int id)
         {
-            FileStream fs = new FileStream("LogFile.txt", FileMode.OpenOrCreate);
+            FileStream fs = new FileStream("LogFile.txt", FileMode.Append);
             StreamWriter s = new StreamWriter(fs);
 
             
@@ -32,7 +32,7 @@ namespace Ladeskab
 
         public void LogDoorUnlocked(int id)
         {
-            FileStream fs = new FileStream("LogFile.txt", FileMode.OpenOrCreate);
+            FileStream fs = new FileStream("LogFile.txt", FileMode.Append);
             StreamWriter s = new StreamWriter(fs);
             s.WriteLine(_dateTime.getDateTime() + $": Unlocked with RFID {id}");
             s.Close();

@@ -61,7 +61,7 @@ namespace Ladeskab.Test.Unit
         {
             _uut.CheckID(OldId, Id);
 
-            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("Forkert RFID tag")));
+            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("System Area: Wrong RFID tag")));
         }
 
         [TestCase(-1, -1)]
@@ -113,7 +113,7 @@ namespace Ladeskab.Test.Unit
         {
             _uut.CheckID(OldId, Id);            
 
-            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("Tag din telefon ud af skabet og luk døren")));
+            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("Take your phone and close")));
             
         }
 
@@ -196,7 +196,7 @@ namespace Ladeskab.Test.Unit
             int newRFID = 1337;
             _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs {RFID = newRFID});
 
-            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("Charging Area: Skabet er låst")));
+            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("System Area: The locker has been locked")));
             
         }
         [Test]
@@ -223,7 +223,7 @@ namespace Ladeskab.Test.Unit
             int newRFID = 1337;
             _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs { RFID = newRFID });
 
-            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("Charging Area: Din telefon er ikke ordentlig tilsluttet")));
+            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("System Area: Your phone is not connected properly")));
 
 
         }

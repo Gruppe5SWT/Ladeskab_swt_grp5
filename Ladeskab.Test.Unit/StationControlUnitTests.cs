@@ -18,7 +18,6 @@ namespace Ladeskab.Test.Unit
         [SetUp]
         public void Setup()
         {
-            //_receivedEventArgs = null;
             _chargeControl = Substitute.For<IChargeControl>();
             _display = Substitute.For<IDisplay>();
             _door = Substitute.For<IDoor>();
@@ -26,13 +25,6 @@ namespace Ladeskab.Test.Unit
             _logFile = Substitute.For<ILogFile>();
 
             _uut = new StationControl(_door, _chargeControl, _display, _rfid, _logFile);
-
-            
-
-            //_uut.Rfid += (o, args) =>
-            //{
-            //    _receivedEventArgs = args;
-            //};
         }
 
         [Test]

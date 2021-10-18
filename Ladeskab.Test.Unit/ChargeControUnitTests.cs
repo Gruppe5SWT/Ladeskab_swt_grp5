@@ -73,10 +73,5 @@ namespace Ladeskab.Test.Unit
             _display.Received(1).ShowChargingError();
             _usbCharger.Received(1).StopCharge();
         }
-
-
-
-
-
     }
 }

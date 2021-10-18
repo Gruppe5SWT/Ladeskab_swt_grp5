@@ -134,7 +134,7 @@ namespace Ladeskab.Test.Unit
         }
 
         [Test]
-        public void RfidDetected_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_LockDoor()
+        public void HandleRFIDDetectedEvent_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_LockDoor()
         {
 
             _uut.State = StationControl.LadeskabState.Available;
@@ -147,7 +147,7 @@ namespace Ladeskab.Test.Unit
             
         }
         [Test]
-        public void RfidDetected_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_ChargeControlStartCharge()
+        public void HandleRFIDDetectedEvent_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_ChargeControlStartCharge()
         {
 
             _uut.State = StationControl.LadeskabState.Available;
@@ -160,7 +160,7 @@ namespace Ladeskab.Test.Unit
             
         }
         [Test]
-        public void RfidDetected_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_oldIDsetToNewID()
+        public void HandleRFIDDetectedEvent_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_oldIDsetToNewID()
         {
 
             _uut.State = StationControl.LadeskabState.Available;
@@ -173,7 +173,7 @@ namespace Ladeskab.Test.Unit
             
         }
         [Test]
-        public void RfidDetected_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_LogDoorLocked()
+        public void HandleRFIDDetectedEvent_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_LogDoorLocked()
         {
 
             _uut.State = StationControl.LadeskabState.Available;
@@ -187,7 +187,7 @@ namespace Ladeskab.Test.Unit
         }
 
         [Test]
-        public void RfidDetected_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_ShowMessageLocked()
+        public void HandleRFIDDetectedEvent_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_ShowMessageLocked()
         {
 
             _uut.State = StationControl.LadeskabState.Available;
@@ -196,11 +196,11 @@ namespace Ladeskab.Test.Unit
             int newRFID = 1337;
             _rfid.RFIDDetectedEvent += Raise.EventWith(new RFIDDetectedEventArgs {RFID = newRFID});
 
-            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("Charing Area: Skabet er låst")));
+            _display.Received(1).ShowMessage(Arg.Is<string>(s => s.Contains("Charging Area: Skabet er låst")));
             
         }
         [Test]
-        public void RfidDetected_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_LadeskabStateIsLocked()
+        public void HandleRFIDDetectedEvent_LadeskabAvailableChargeControlConnectedRFIDDetectedEvent_LadeskabStateIsLocked()
         {
 
             _uut.State = StationControl.LadeskabState.Available;
@@ -214,7 +214,7 @@ namespace Ladeskab.Test.Unit
         }
 
         [Test]
-        public void RfidDetected_LadeskabAvailableChargeControlNotConnectedRFIDDetectedEvent_DisplayShowMessagePhoneNotConnected()
+        public void HandleRFIDDetectedEvent_LadeskabAvailableChargeControlNotConnectedRFIDDetectedEvent_DisplayShowMessagePhoneNotConnected()
         {
 
             _uut.State = StationControl.LadeskabState.Available;
@@ -229,7 +229,7 @@ namespace Ladeskab.Test.Unit
         }
 
         [Test]
-        public void RfidDetected_LadeskabLockedRFIDDetectedEventWithMatchingID_LadeskabStateIsAvailable()
+        public void HandleRFIDDetectedEvent_LadeskabLockedRFIDDetectedEventWithMatchingID_LadeskabStateIsAvailable()
         {
 
             _uut.State = StationControl.LadeskabState.Locked;
@@ -241,7 +241,25 @@ namespace Ladeskab.Test.Unit
             Assert.That(_uut.State.Equals(StationControl.LadeskabState.Available));
         }
 
+        [Test]
+        public void HandleDoorStateChangedEvent_DoorStateChangedEventDoorOpen_DisplayShowConnectPhoneRequest()
+        {
 
+            _door.DoorStateChangedEvent += Raise.EventWith(new DoorStateChangedEventArgs {Open = true});
+
+            _display.Received(1).ShowConnectPhoneRequest();
+            
+        }
+
+        [Test]
+        public void HandleDoorStateChangedEvent_DoorStateChangedEventDoorClosed_DisplayShowLoadRFIDRequest()
+        {
+
+            _door.DoorStateChangedEvent += Raise.EventWith(new DoorStateChangedEventArgs {Open = false});
+
+            _display.Received(1).ShowLoadRFIDRequest();
+            
+        }
 
 
     }

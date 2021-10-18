@@ -31,7 +31,7 @@ namespace Ladeskab.Test.Unit
 
             string expected = $"{dateTime}: Locked with RFID {id}";
 
-            Assert.AreEqual(expected, s.ReadLine());
+            Assert.That(s.ReadToEnd().Contains(expected));
 
             s.Close();
             fs.Close();
@@ -51,7 +51,7 @@ namespace Ladeskab.Test.Unit
 
             string expected = $"{dateTime}: Unlocked with RFID {id}";
 
-            Assert.AreEqual(expected, s.ReadLine());
+            Assert.That(s.ReadToEnd().Contains(expected));
 
             s.Close();
             fs.Close();
